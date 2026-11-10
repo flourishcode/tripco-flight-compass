@@ -162,11 +162,6 @@ function FlightDetails({ onBack }: { onBack: () => void }) {
         <span className="booking-date"><span>SATURDAY</span> 5 December <span>·</span> 12:00</span>
       </div>
 
-      <div className="demo-notice" role="note">
-        <ShieldCheck aria-hidden="true" size={19} />
-        <p><strong>Sample itinerary</strong><span>For educational purposes only. This is not live airline or flight status information.</span></p>
-      </div>
-
       <article className="flight-card" aria-label="Flight details from Miami to Indianapolis">
         <div className="flight-card__top">
           <div className="route-heading">

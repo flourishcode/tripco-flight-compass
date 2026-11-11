@@ -6,13 +6,12 @@ import {
   Check,
   Clock3,
   Luggage,
-  MapPin,
+  Leaf,
   Plane,
   Search,
   ShieldCheck,
 } from "lucide-react";
 
-import americanAirlinesLogo from "@/assets/american-airlines-logo.png.asset.json";
 import tripComLogo from "@/assets/trip-com-logo.png.asset.json";
 import flightHero from "@/assets/flight-lookup-hero.jpg";
 import { Button } from "@/components/ui/button";
@@ -156,60 +155,144 @@ function FlightDetails({ onBack }: { onBack: () => void }) {
       <div className="details-heading">
         <div>
           <p className="section-kicker">YOUR TRIP</p>
-          <h1 id="details-title">You're going to Indianapolis.</h1>
-          <p className="traveler-line">Itinerary for <strong>Kinta Cox</strong></p>
+          <h1 id="details-title">Istanbul to Orlando</h1>
+          <p className="traveler-line">Itinerary for <strong>Gerald Pressley</strong></p>
         </div>
-        <span className="booking-date"><span>SATURDAY</span> 5 December <span>·</span> 12:00</span>
+        <span className="booking-date"><span>MONDAY</span> 23 November</span>
       </div>
 
-      <article className="flight-card" aria-label="Flight details from Miami to Indianapolis">
+      <section className="trip-summary" aria-label="Trip overview">
+        <div className="trip-summary__route">
+          <span>FROM</span><strong>Istanbul, Türkiye</strong><small>Sabiha Gökçen (SAW)</small>
+        </div>
+        <ArrowRight aria-hidden="true" size={20} />
+        <div className="trip-summary__route">
+          <span>TO</span><strong>Orlando, Florida</strong><small>Orlando International (MCO)</small>
+        </div>
+        <div className="emissions-summary">
+          <Leaf aria-hidden="true" size={18} />
+          <span><strong>586 kg CO₂e</strong><small>Average emissions</small></span>
+        </div>
+      </section>
+
+      <FlightLeg
+        leg="1"
+        airline="Pegasus"
+        flight="PC 1251"
+        aircraft="Airbus A321"
+        departureTime="09:00"
+        departureAirport="Sabiha Gökçen International Airport"
+        departureCode="SAW"
+        arrivalTime="10:45"
+        arrivalAirport="Amsterdam Airport Schiphol"
+        arrivalCode="AMS"
+        duration="3 hrs 45 min"
+        emissions="171 kg CO₂e"
+        amenities={["Below-average legroom (71 cm)", "Stream media to your device"]}
+      />
+
+      <div className="layover-note">
+        <Clock3 aria-hidden="true" size={17} />
+        <span><strong>2 hrs 15 min layover</strong><small>Amsterdam (AMS)</small></span>
+      </div>
+
+      <FlightLeg
+        leg="2"
+        airline="Delta"
+        flight="DL 91"
+        aircraft="Airbus A330-900neo"
+        departureTime="13:00"
+        departureAirport="Amsterdam Airport Schiphol"
+        departureCode="AMS"
+        arrivalTime="17:05"
+        arrivalAirport="Orlando International Airport"
+        arrivalCode="MCO"
+        duration="10 hrs 5 min"
+        emissions="416 kg CO₂e"
+        amenities={["Average legroom (79 cm)", "Free Wi-Fi", "In-seat power and USB outlets", "On-demand video"]}
+      />
+
+      <div className="below-flight-note">
+        <span className="notice-icon"><Clock3 aria-hidden="true" size={19} /></span>
+        <p><strong>Flight times shown in local time</strong><span>Confirm current departure and gate information with the airlines before travel.</span></p>
+      </div>
+
+      <div className="details-footer"><span>Departing flight · Monday 23 November</span><img src={tripComLogo.url} alt="Trip.com" width={110} height={27} /></div>
+    </section>
+  );
+}
+
+function FlightLeg({
+  leg,
+  airline,
+  flight,
+  aircraft,
+  departureTime,
+  departureAirport,
+  departureCode,
+  arrivalTime,
+  arrivalAirport,
+  arrivalCode,
+  duration,
+  emissions,
+  amenities,
+}: {
+  leg: string;
+  airline: string;
+  flight: string;
+  aircraft: string;
+  departureTime: string;
+  departureAirport: string;
+  departureCode: string;
+  arrivalTime: string;
+  arrivalAirport: string;
+  arrivalCode: string;
+  duration: string;
+  emissions: string;
+  amenities: string[];
+}) {
+  return (
+    <article className="flight-card itinerary-leg" aria-label={`Flight ${leg}: ${departureCode} to ${arrivalCode}`}>
         <div className="flight-card__top">
           <div className="route-heading">
-            <p className="section-kicker">YOUR FLIGHT</p>
-            <h2>Miami <span>MIA</span><ArrowRight aria-hidden="true" size={17} /> Indianapolis <span>IND</span></h2>
+            <p className="section-kicker">FLIGHT {leg} · {airline.toUpperCase()}</p>
+            <h2>{departureCode} <ArrowRight aria-hidden="true" size={17} /> {arrivalCode}</h2>
           </div>
-          <span className="nonstop-pill"><Check aria-hidden="true" size={15} /> Non-stop</span>
+          <span className="flight-number">{flight}</span>
         </div>
 
         <div className="flight-route">
           <div className="route-endpoint">
-            <span className="airport-time">08:20</span>
-            <span className="airport-code">MIA</span>
-            <strong>Miami International Airport</strong>
-            <span className="airport-address">2100 NW 42nd Ave, Miami, FL 33142</span>
+            <span className="airport-time">{departureTime}</span>
+            <span className="airport-code">{departureCode}</span>
+            <strong>{departureAirport}</strong>
           </div>
-          <div className="route-duration" aria-label="Flight duration: 2 hours 57 minutes">
-            <span>2 hrs 57 min</span>
+          <div className="route-duration" aria-label={`Flight duration: ${duration}`}>
+            <span>{duration}</span>
             <div className="route-line"><span><Plane aria-hidden="true" size={16} /></span></div>
-            <span>Direct flight</span>
+            <span>Travel time</span>
           </div>
           <div className="route-endpoint route-endpoint--arrival">
-            <span className="airport-time">11:17</span>
-            <span className="airport-code">IND</span>
-            <strong>Indianapolis International Airport</strong>
-            <span className="airport-address">Indianapolis, Indiana</span>
+            <span className="airport-time">{arrivalTime}</span>
+            <span className="airport-code">{arrivalCode}</span>
+            <strong>{arrivalAirport}</strong>
           </div>
         </div>
-        <p className="local-time-note"><Clock3 aria-hidden="true" size={13} /> Flight times shown in local time</p>
 
         <div className="flight-card__footer">
           <div className="airline-block">
-            <img className="airline-logo" src={americanAirlinesLogo.url} alt="American Airlines" width={42} height={42} />
-            <div><strong>American Airlines</strong><span>Flight AA 1224</span></div>
+            <span className="airline-mark" aria-hidden="true"><Plane size={18} /></span>
+            <div><strong>{airline}</strong><span>{flight}</span></div>
           </div>
-          <span className="flight-detail"><Plane aria-hidden="true" size={17} /><span><strong>Boeing 737</strong><small>Aircraft</small></span></span>
+          <span className="flight-detail"><Plane aria-hidden="true" size={17} /><span><strong>{aircraft}</strong><small>Aircraft</small></span></span>
           <span className="flight-detail"><Luggage aria-hidden="true" size={17} /><span><strong>Economy</strong><small>Cabin</small></span></span>
-          <span className="flight-detail"><MapPin aria-hidden="true" size={17} /><span><strong>Non-stop</strong><small>Route</small></span></span>
+          <span className="flight-detail"><Leaf aria-hidden="true" size={17} /><span><strong>{emissions}</strong><small>Emissions estimate</small></span></span>
         </div>
-      </article>
 
-      <div className="below-flight-note">
-        <span className="notice-icon"><Clock3 aria-hidden="true" size={19} /></span>
-        <p><strong>Heading to the airport?</strong><span>Check with American Airlines for current gate, check-in, and departure information.</span></p>
-        <ArrowRight aria-hidden="true" className="note-arrow" size={18} />
-      </div>
-
-      <div className="details-footer"><span>Flight details for Kinta Cox · 5 December</span><img src={tripComLogo.url} alt="Trip.com" width={110} height={27} /></div>
-    </section>
+        <div className="flight-amenities">
+          {amenities.map((amenity) => <span key={amenity}><Check aria-hidden="true" size={14} />{amenity}</span>)}
+          <span><Clock3 aria-hidden="true" size={14} />Contrail warming potential: Medium</span>
+        </div>
+    </article>
   );
 }

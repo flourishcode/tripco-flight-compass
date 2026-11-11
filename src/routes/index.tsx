@@ -7,13 +7,11 @@ import {
   Clock3,
   Luggage,
   Leaf,
-  MapPin,
   Plane,
   Search,
   ShieldCheck,
 } from "lucide-react";
 
-import americanAirlinesLogo from "@/assets/american-airlines-logo.png.asset.json";
 import tripComLogo from "@/assets/trip-com-logo.png.asset.json";
 import flightHero from "@/assets/flight-lookup-hero.jpg";
 import { Button } from "@/components/ui/button";

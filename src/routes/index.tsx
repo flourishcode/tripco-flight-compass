@@ -3,8 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowLeft,
   ArrowRight,
+  Check,
   Clock3,
-  DollarSign,
   Luggage,
   Leaf,
   Plane,
@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 
 import tripComLogo from "@/assets/trip-com-logo.png.asset.json";
-import americanAirlinesLogo from "@/assets/american-airlines-logo.png.asset.json";
 import flightHero from "@/assets/flight-lookup-hero.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -155,42 +154,62 @@ function FlightDetails({ onBack }: { onBack: () => void }) {
 
       <div className="details-heading">
         <div>
-          <p className="section-kicker">DEPARTING FLIGHT</p>
-          <h1 id="details-title">LGA to DJT</h1>
-          <p className="traveler-line">Itinerary for <strong>Nancy Kelly</strong></p>
+          <p className="section-kicker">YOUR TRIP</p>
+          <h1 id="details-title">Istanbul to Orlando</h1>
+          <p className="traveler-line">Itinerary for <strong>Gerald Pressley</strong></p>
         </div>
-        <span className="booking-date"><span>TUESDAY,</span> Nov. 17, 2026</span>
+        <span className="booking-date"><span>MONDAY</span> 23 November</span>
       </div>
 
       <section className="trip-summary" aria-label="Trip overview">
         <div className="trip-summary__route">
-          <span>FROM</span><strong>LaGuardia Airport</strong><small>New York (LGA)</small>
+          <span>FROM</span><strong>Istanbul, Türkiye</strong><small>Sabiha Gökçen (SAW)</small>
         </div>
         <ArrowRight aria-hidden="true" size={20} />
         <div className="trip-summary__route">
-          <span>TO</span><strong>President Donald J. Trump International Airport</strong><small>(DJT)</small>
+          <span>TO</span><strong>Orlando, Florida</strong><small>Orlando International (MCO)</small>
         </div>
         <div className="emissions-summary">
           <Leaf aria-hidden="true" size={18} />
-          <span><strong>154 kg CO₂e</strong><small>−10% emissions</small></span>
+          <span><strong>586 kg CO₂e</strong><small>Average emissions</small></span>
         </div>
       </section>
 
       <FlightLeg
         leg="1"
-        airline="American"
-        airlineLogo={americanAirlinesLogo.url}
-        flight="AA 1385"
-        aircraft="Boeing 737"
-        departureTime="10:45"
-        departureAirport="LaGuardia Airport"
-        departureCode="LGA"
-        arrivalTime="13:46"
-        arrivalAirport="President Donald J. Trump International Airport"
-        arrivalCode="DJT"
-        duration="3 hrs 1 min"
-        price="$228.11"
-        notes={["Provided delay note: Often delayed by 30+ min"]}
+        airline="Pegasus"
+        flight="PC 1251"
+        aircraft="Airbus A321"
+        departureTime="09:00"
+        departureAirport="Sabiha Gökçen International Airport"
+        departureCode="SAW"
+        arrivalTime="10:45"
+        arrivalAirport="Amsterdam Airport Schiphol"
+        arrivalCode="AMS"
+        duration="3 hrs 45 min"
+        emissions="171 kg CO₂e"
+        amenities={["Below-average legroom (71 cm)", "Stream media to your device"]}
+      />
+
+      <div className="layover-note">
+        <Clock3 aria-hidden="true" size={17} />
+        <span><strong>2 hrs 15 min layover</strong><small>Amsterdam (AMS)</small></span>
+      </div>
+
+      <FlightLeg
+        leg="2"
+        airline="Delta"
+        flight="DL 91"
+        aircraft="Airbus A330-900neo"
+        departureTime="13:00"
+        departureAirport="Amsterdam Airport Schiphol"
+        departureCode="AMS"
+        arrivalTime="17:05"
+        arrivalAirport="Orlando International Airport"
+        arrivalCode="MCO"
+        duration="10 hrs 5 min"
+        emissions="416 kg CO₂e"
+        amenities={["Average legroom (79 cm)", "Free Wi-Fi", "In-seat power and USB outlets", "On-demand video"]}
       />
 
       <div className="below-flight-note">
@@ -198,7 +217,7 @@ function FlightDetails({ onBack }: { onBack: () => void }) {
         <p><strong>Flight times shown in local time</strong><span>Confirm current departure and gate information with the airlines before travel.</span></p>
       </div>
 
-      <div className="details-footer"><span>Departing flight · Tuesday, Nov. 17, 2026</span><img src={tripComLogo.url} alt="Trip.com" width={110} height={27} /></div>
+      <div className="details-footer"><span>Departing flight · Monday 23 November</span><img src={tripComLogo.url} alt="Trip.com" width={110} height={27} /></div>
     </section>
   );
 }
@@ -206,7 +225,6 @@ function FlightDetails({ onBack }: { onBack: () => void }) {
 function FlightLeg({
   leg,
   airline,
-  airlineLogo,
   flight,
   aircraft,
   departureTime,
@@ -216,12 +234,11 @@ function FlightLeg({
   arrivalAirport,
   arrivalCode,
   duration,
-  price,
-  notes,
+  emissions,
+  amenities,
 }: {
   leg: string;
   airline: string;
-  airlineLogo: string;
   flight: string;
   aircraft: string;
   departureTime: string;
@@ -231,8 +248,8 @@ function FlightLeg({
   arrivalAirport: string;
   arrivalCode: string;
   duration: string;
-  price: string;
-  notes: string[];
+  emissions: string;
+  amenities: string[];
 }) {
   return (
     <article className="flight-card itinerary-leg" aria-label={`Flight ${leg}: ${departureCode} to ${arrivalCode}`}>
@@ -264,16 +281,17 @@ function FlightLeg({
 
         <div className="flight-card__footer">
           <div className="airline-block">
-            <img className="airline-logo" src={airlineLogo} alt="American Airlines" width={42} height={42} />
+            <span className="airline-mark" aria-hidden="true"><Plane size={18} /></span>
             <div><strong>{airline}</strong><span>{flight}</span></div>
           </div>
           <span className="flight-detail"><Plane aria-hidden="true" size={17} /><span><strong>{aircraft}</strong><small>Aircraft</small></span></span>
           <span className="flight-detail"><Luggage aria-hidden="true" size={17} /><span><strong>Economy</strong><small>Cabin</small></span></span>
-          <span className="flight-detail"><DollarSign aria-hidden="true" size={17} /><span><strong>{price}</strong><small>Price</small></span></span>
+          <span className="flight-detail"><Leaf aria-hidden="true" size={17} /><span><strong>{emissions}</strong><small>Emissions estimate</small></span></span>
         </div>
 
         <div className="flight-amenities">
-          {notes.map((note) => <span key={note}><Clock3 aria-hidden="true" size={14} />{note}</span>)}
+          {amenities.map((amenity) => <span key={amenity}><Check aria-hidden="true" size={14} />{amenity}</span>)}
+          <span><Clock3 aria-hidden="true" size={14} />Contrail warming potential: Medium</span>
         </div>
     </article>
   );

@@ -5,6 +5,7 @@ import {
   ArrowRight,
   Check,
   Clock3,
+  CircleDollarSign,
   Luggage,
   Leaf,
   Plane,
@@ -155,61 +156,44 @@ function FlightDetails({ onBack }: { onBack: () => void }) {
       <div className="details-heading">
         <div>
           <p className="section-kicker">YOUR TRIP</p>
-          <h1 id="details-title">Istanbul to Orlando</h1>
-          <p className="traveler-line">Itinerary for <strong>Gerald Pressley</strong></p>
+          <h1 id="details-title">New York to West Palm Beach</h1>
+          <p className="traveler-line">Itinerary for <strong>Nancy Kelly</strong></p>
         </div>
-        <span className="booking-date"><span>MONDAY</span> 23 November</span>
+        <span className="booking-date"><span>WEDNESDAY</span> Nov. 18, 2026</span>
       </div>
 
       <section className="trip-summary" aria-label="Trip overview">
         <div className="trip-summary__route">
-          <span>FROM</span><strong>Istanbul, Türkiye</strong><small>Sabiha Gökçen (SAW)</small>
+          <span>FROM</span><strong>New York</strong><small>LaGuardia Airport (LGA)</small>
         </div>
         <ArrowRight aria-hidden="true" size={20} />
         <div className="trip-summary__route">
-          <span>TO</span><strong>Orlando, Florida</strong><small>Orlando International (MCO)</small>
+          <span>TO</span><strong>West Palm Beach, Florida</strong><small>West Palm Beach (PBI)</small>
         </div>
         <div className="emissions-summary">
           <Leaf aria-hidden="true" size={18} />
-          <span><strong>586 kg CO₂e</strong><small>Average emissions</small></span>
+          <span><strong>165 kg CO₂e</strong><small>Average emissions</small></span>
+        </div>
+        <div className="fare-summary">
+          <CircleDollarSign aria-hidden="true" size={18} />
+          <span><strong>$228.11</strong><small>Fare</small></span>
         </div>
       </section>
 
       <FlightLeg
-        leg="1"
-        airline="Pegasus"
-        flight="PC 1251"
-        aircraft="Airbus A321"
-        departureTime="09:00"
-        departureAirport="Sabiha Gökçen International Airport"
-        departureCode="SAW"
-        arrivalTime="10:45"
-        arrivalAirport="Amsterdam Airport Schiphol"
-        arrivalCode="AMS"
-        duration="3 hrs 45 min"
-        emissions="171 kg CO₂e"
-        amenities={["Below-average legroom (71 cm)", "Stream media to your device"]}
-      />
-
-      <div className="layover-note">
-        <Clock3 aria-hidden="true" size={17} />
-        <span><strong>2 hrs 15 min layover</strong><small>Amsterdam (AMS)</small></span>
-      </div>
-
-      <FlightLeg
-        leg="2"
+        leg="DEPARTING FLIGHT"
         airline="Delta"
-        flight="DL 91"
-        aircraft="Airbus A330-900neo"
-        departureTime="13:00"
-        departureAirport="Amsterdam Airport Schiphol"
-        departureCode="AMS"
-        arrivalTime="17:05"
-        arrivalAirport="Orlando International Airport"
-        arrivalCode="MCO"
-        duration="10 hrs 5 min"
-        emissions="416 kg CO₂e"
-        amenities={["Average legroom (79 cm)", "Free Wi-Fi", "In-seat power and USB outlets", "On-demand video"]}
+        flight="DL 2410"
+        aircraft="Airbus A321"
+        departureTime="19:20"
+        departureAirport="LaGuardia Airport"
+        departureCode="LGA"
+        arrivalTime="22:20"
+        arrivalAirport="West Palm Beach Airport"
+        arrivalCode="PBI"
+        duration="3 hrs"
+        emissions="165 kg CO₂e"
+        amenities={["Average legroom (79 cm)", "Free Wi-Fi", "In-seat power and USB outlets", "Live TV"]}
       />
 
       <div className="below-flight-note">
@@ -217,7 +201,7 @@ function FlightDetails({ onBack }: { onBack: () => void }) {
         <p><strong>Flight times shown in local time</strong><span>Confirm current departure and gate information with the airlines before travel.</span></p>
       </div>
 
-      <div className="details-footer"><span>Departing flight · Monday 23 November</span><img src={tripComLogo.url} alt="Trip.com" width={110} height={27} /></div>
+      <div className="details-footer"><span>Departing flight · Wednesday, Nov. 18, 2026</span><img src={tripComLogo.url} alt="Trip.com" width={110} height={27} /></div>
     </section>
   );
 }
@@ -255,7 +239,7 @@ function FlightLeg({
     <article className="flight-card itinerary-leg" aria-label={`Flight ${leg}: ${departureCode} to ${arrivalCode}`}>
         <div className="flight-card__top">
           <div className="route-heading">
-            <p className="section-kicker">FLIGHT {leg} · {airline.toUpperCase()}</p>
+            <p className="section-kicker">{leg} · {airline.toUpperCase()}</p>
             <h2>{departureCode} <ArrowRight aria-hidden="true" size={17} /> {arrivalCode}</h2>
           </div>
           <span className="flight-number">{flight}</span>
@@ -291,6 +275,7 @@ function FlightLeg({
 
         <div className="flight-amenities">
           {amenities.map((amenity) => <span key={amenity}><Check aria-hidden="true" size={14} />{amenity}</span>)}
+          <span><Clock3 aria-hidden="true" size={14} />Often delayed by 30+ min</span>
           <span><Clock3 aria-hidden="true" size={14} />Contrail warming potential: Medium</span>
         </div>
     </article>

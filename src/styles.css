@@ -253,13 +253,17 @@
 .details-footer { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-top: 24px; color: var(--color-muted-foreground); font-size: 10px; }
 .details-footer img { display: block; width: 94px; height: auto; }
 
-.trip-summary { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto; align-items: center; gap: 21px; margin: 0 0 17px; border: 1px solid var(--color-border); background: var(--color-card); padding: 17px 21px; }
+.trip-summary { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto auto; align-items: center; gap: 18px; margin: 0 0 17px; border: 1px solid var(--color-border); background: var(--color-card); padding: 17px 21px; }
 .trip-summary > svg { color: var(--color-trip-accent); }
 .trip-summary__route { display: grid; min-width: 0; gap: 4px; }
 .trip-summary__route > span { color: var(--color-muted-foreground); font-size: 9px; font-weight: 700; letter-spacing: 0.8px; }
 .trip-summary__route strong { font-size: 14px; }
 .trip-summary__route small { color: var(--color-muted-foreground); font-size: 11px; line-height: 1.45; }
 .emissions-summary { display: flex; align-items: center; gap: 9px; border-left: 1px solid var(--color-border); padding-left: 20px; color: var(--color-trip-success); }
+.fare-summary { display: flex; align-items: center; gap: 9px; border-left: 1px solid var(--color-border); padding-left: 18px; color: var(--color-trip-accent); }
+.fare-summary > span { display: grid; gap: 3px; white-space: nowrap; }
+.fare-summary strong { color: var(--color-foreground); font-size: 12px; }
+.fare-summary small { color: var(--color-muted-foreground); font-size: 10px; }
 .emissions-summary > span { display: grid; gap: 3px; white-space: nowrap; }
 .emissions-summary strong { color: var(--color-foreground); font-size: 12px; }
 .emissions-summary small { color: var(--color-muted-foreground); font-size: 10px; }
@@ -286,7 +290,7 @@
   .trip-summary { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; padding: 14px 12px; }
   .trip-summary__route strong { font-size: 12px; }
   .trip-summary__route small { font-size: 9px; }
-  .emissions-summary { grid-column: 1 / -1; border-top: 1px solid var(--color-border); border-left: 0; padding: 11px 0 0; }
+  .emissions-summary, .fare-summary { grid-column: 1 / -1; border-top: 1px solid var(--color-border); border-left: 0; padding: 11px 0 0; }
   .itinerary-leg .flight-card__top { padding: 14px; }
   .itinerary-leg .flight-route { grid-template-columns: minmax(0, 1fr) minmax(55px, 0.48fr) minmax(0, 1fr); gap: 7px; padding: 15px 12px; }
   .itinerary-leg .airport-time { font-size: 23px; }
